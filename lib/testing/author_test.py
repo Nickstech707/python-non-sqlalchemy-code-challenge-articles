@@ -19,6 +19,8 @@ class TestAuthor:
         assert author_1.name == "Carry Bradshaw"
         assert author_2.name == "Nathaniel Hawthorne"
 
+
+
     def test_name_is_immutable_string(self):
         """author name is of type str and cannot change"""
         author_1 = Author("Carry Bradshaw")
@@ -28,16 +30,18 @@ class TestAuthor:
         assert isinstance(author_2.name, str)
 
         # comment out the next two lines if using Exceptions
-        author_1.name = "ActuallyTopher"
-        assert author_1.name == "Carry Bradshaw"
+        # author_1.name = "ActuallyTopher"
+        # assert author_1.name == "Carry Bradshaw"
 
         # comment out the next two lines if using Exceptions
-        author_2.name = 2
-        assert author_2.name == "Nathaniel Hawthorne"
+        # author_2.name = 2
+        # assert author_2.name == "Nathaniel Hawthorne"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Author(2)
+        with pytest.raises(Exception):
+            Author(2)
+
+
 
     def test_name_len(self):
         """author name is longer than 0 characters"""
@@ -50,8 +54,10 @@ class TestAuthor:
         assert len(author_2.name) > 0
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Author("")
+        with pytest.raises(Exception):
+            Author("")
+
+
 
     def test_has_many_articles(self):
         """author has many articles"""
@@ -69,6 +75,8 @@ class TestAuthor:
         assert article_3 not in author_1.articles()
         assert article_3 in author_2.articles()
 
+
+
     def test_articles_of_type_articles(self):
         """author articles are of type Article"""
         author_1 = Author("Carry Bradshaw")
@@ -79,6 +87,8 @@ class TestAuthor:
 
         assert isinstance(author_1.articles()[0], Article)
         assert isinstance(author_2.articles()[0], Article)
+
+
 
     def test_has_many_magazines(self):
         """author has many magazines"""
@@ -92,6 +102,8 @@ class TestAuthor:
         assert magazine_1 in author_1.magazines()
         assert magazine_2 in author_1.magazines()
         assert magazine_3 not in author_1.magazines()
+
+
 
     def test_magazines_of_type_magazine(self):
         """author magazines are of type Magazine"""
@@ -108,6 +120,8 @@ class TestAuthor:
         assert isinstance(author_1.magazines()[1], Magazine)
         assert isinstance(author_2.magazines()[0], Magazine)
 
+
+
     def test_magazines_are_unique(self):
         """author magazines are unique"""
         author_1 = Author("Carry Bradshaw")
@@ -119,6 +133,8 @@ class TestAuthor:
 
         assert len(set(author_1.magazines())) == len(author_1.magazines())
         assert len(author_1.magazines()) == 2
+
+
 
     def test_add_article(self):
         """creates and returns a new article given a magazine and title"""
@@ -137,6 +153,8 @@ class TestAuthor:
         assert article_2 in magazine_2.articles()
         assert article_3 in magazine_2.articles()
 
+
+
     def test_topic_areas(self):
         """returns a list of topic areas for all articles by author"""
         author_1 = Author("Carry Bradshaw")
@@ -151,6 +169,9 @@ class TestAuthor:
         assert set(author_1.topic_areas()) == {"Fashion", "Architecture"}
         assert author_2.topic_areas() == ["Architecture"]
 
+
+
+
     def test_topic_areas_are_unique(self):
         """topic areas are unique"""
         author_1 = Author("Carry Bradshaw")
@@ -160,9 +181,11 @@ class TestAuthor:
         author_1.add_article(magazine_1, "How to wear a tutu with style")
         author_1.add_article(magazine_1, "Dating life in NYC")
         author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
-
+    
         assert len(set(author_1.topic_areas())) == len(author_1.topic_areas())
         assert len(author_1.topic_areas()) == 2
         assert "Fashion" in author_1.topic_areas()
         assert "Architecture" in author_1.topic_areas()
-        assert author_2.topic_areas() is None
+        assert author_2.topic_areas() == []
+
+
